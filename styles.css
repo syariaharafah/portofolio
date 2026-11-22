@@ -242,8 +242,14 @@ footer { background: #092441; color: #a9bfd3; padding-block: 28px; }
 .lightbox::backdrop { background: rgba(3,17,33,.82); backdrop-filter: blur(8px); }
 .lightbox figure { margin: 0; display: grid; grid-template-rows: minmax(0,1fr) auto; max-height: calc(100vh - 32px); }
 .lightbox img { width: 100%; height: calc(100vh - 110px); object-fit: contain; background: #081e37; }
-.lightbox figcaption { padding: 17px 60px 17px 20px; font-family: var(--serif); font-size: 1.05rem; }
+.lightbox figcaption { padding: 17px 60px 17px 20px; font-family: var(--serif); font-size: 1.05rem; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.lightbox-counter { color: #a9c8e4; font-family: var(--sans); font-size: .78rem; font-weight: 750; white-space: nowrap; }
 .lightbox-close { position: absolute; right: 14px; top: 12px; z-index: 2; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); color: var(--white); background: rgba(4,26,50,.7); font-size: 1.6rem; line-height: 1; cursor: pointer; }
+.lightbox-nav { position: absolute; z-index: 2; top: 50%; translate: 0 -50%; width: 48px; height: 62px; border: 1px solid rgba(255,255,255,.24); border-radius: 12px; background: rgba(5,31,58,.78); color: var(--white); font-family: var(--serif); font-size: 2.25rem; line-height: 1; cursor: pointer; backdrop-filter: blur(8px); }
+.lightbox-nav:hover { background: rgba(18,70,118,.94); }
+.lightbox-prev { left: 14px; }
+.lightbox-next { right: 14px; }
+.lightbox-nav[hidden] { display: none; }
 .toast { position: fixed; left: 50%; bottom: 22px; z-index: 100; transform: translate(-50%,120px); background: #082a51; color: var(--white); padding: 11px 18px; border-radius: 999px; box-shadow: 0 12px 35px rgba(5,32,61,.25); font-size: .84rem; opacity: 0; transition: .3s ease; }
 .toast.show { transform: translate(-50%,0); opacity: 1; }
 
@@ -318,6 +324,9 @@ footer { background: #092441; color: #a9bfd3; padding-block: 28px; }
   .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
   .gallery-item.wide { grid-column: span 1; }
   .contact-actions { padding: 20px; }
+  .lightbox-nav { width: 40px; height: 54px; font-size: 1.9rem; }
+  .lightbox-prev { left: 7px; }
+  .lightbox-next { right: 7px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
