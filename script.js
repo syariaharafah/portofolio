@@ -1,6 +1,102 @@
 const header = document.querySelector('.site-header');
 const menuButton = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
+const sakuraLayer = document.querySelector('.sakura-layer');
+
+function createSeededRandom(seed) {
+  let value = seed >>> 0;
+  return () => {
+    value = (value * 1664525 + 1013904223) >>> 0;
+    return value / 4294967296;
+  };
+}
+
+function initializeSakura() {
+  if (!sakuraLayer) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const random = createSeededRandom(20261124);
+  const petalCount = window.innerWidth < 560 ? 25 : 42;
+  const animations = [];
+
+  if (prefersReducedMotion) sakuraLayer.classList.add('is-static');
+
+  for (let index = 0; index < petalCount; index += 1) {
+    const petal = document.createElement('span');
+    const size = 9 + random() * 15;
+    const opacity = .28 + random() * .38;
+    const duration = 13500 + random() * 12500;
+    const horizontalDrift = (random() - .5) * 260;
+    const rotation = (random() > .5 ? 1 : -1) * (320 + random() * 540);
+    const scale = .72 + random() * .5;
+
+    petal.className = 'sakura-petal';
+    petal.style.setProperty('--petal-x', `${random() * 100}%`);
+    petal.style.setProperty('--petal-size', `${size.toFixed(1)}px`);
+    petal.style.setProperty('--petal-opacity', opacity.toFixed(2));
+    petal.style.setProperty('--static-y', `${random() * 96}%`);
+    petal.style.setProperty('--static-rotation', `${Math.round(random() * 360)}deg`);
+    sakuraLayer.append(petal);
+
+    if (prefersReducedMotion || typeof petal.animate !== 'function') continue;
+
+    const animation = petal.animate([
+      { transform: `translate3d(0,-14vh,0) rotate(0deg) scale(${scale})`, opacity: 0 },
+      { opacity, offset: .08 },
+      { transform: `translate3d(${horizontalDrift * .42}px,45vh,0) rotate(${rotation * .48}deg) scale(${scale * .92})`, opacity, offset: .48 },
+      { transform: `translate3d(${horizontalDrift}px,116vh,0) rotate(${rotation}deg) scale(${scale})`, opacity: .08 }
+    ], {
+      duration,
+      delay: -random() * duration,
+      iterations: Infinity,
+      easing: 'linear'
+    });
+    animations.push(animation);
+  }
+
+  if (!animations.length) return;
+
+  let lastScrollY = window.scrollY;
+  let currentRate = 1;
+  let targetRate = 1;
+  let rateFrame = 0;
+  sakuraLayer.dataset.speed = '1.00';
+
+  function applySakuraRate(rate) {
+    animations.forEach((animation) => {
+      if (typeof animation.updatePlaybackRate === 'function') {
+        animation.updatePlaybackRate(rate);
+      } else {
+        animation.playbackRate = rate;
+      }
+    });
+    sakuraLayer.dataset.speed = rate.toFixed(2);
+  }
+
+  function settleSakuraSpeed() {
+    targetRate += (1 - targetRate) * .075;
+    currentRate += (targetRate - currentRate) * .16;
+    applySakuraRate(currentRate);
+
+    if (Math.abs(currentRate - 1) > .015 || Math.abs(targetRate - 1) > .015) {
+      rateFrame = window.requestAnimationFrame(settleSakuraSpeed);
+    } else {
+      currentRate = 1;
+      targetRate = 1;
+      applySakuraRate(1);
+      rateFrame = 0;
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    const scrollDistance = Math.abs(window.scrollY - lastScrollY);
+    lastScrollY = window.scrollY;
+    targetRate = Math.max(targetRate, Math.min(4.6, 1.35 + scrollDistance / 14));
+    if (!rateFrame) rateFrame = window.requestAnimationFrame(settleSakuraSpeed);
+  }, { passive: true });
+}
+
+initializeSakura();
 
 window.addEventListener('scroll', () => {
   header.classList.toggle('scrolled', window.scrollY > 12);
