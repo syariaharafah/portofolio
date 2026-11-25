@@ -18,7 +18,7 @@ Jika Supabase belum tersambung, admin menawarkan **mode demo lokal**. Semua form
 3. Salin Project URL dan publishable key ke `site-config.js`.
 4. Pada Authentication → URL Configuration, gunakan `https://syariaharafah.github.io/portofolio/` sebagai Site URL dan tambahkan `https://syariaharafah.github.io/portofolio/admin/` sebagai Redirect URL.
 5. Buka `/admin/`, isi kata sandi minimal delapan karakter, lalu tekan **Aktifkan akun admin pertama**.
-6. Konfirmasi email `arafahsitisyariah@gmail.com` jika diminta.
+6. Konfirmasi email `cantiksyariah348@gmail.com` jika diminta.
 7. Masuk ke admin dan tekan **Masukkan data awal** pada halaman Ringkasan.
 
 Akun lain tidak mendapatkan akses admin. Secret key atau service-role key tidak boleh dimasukkan ke repository.

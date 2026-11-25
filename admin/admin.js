@@ -2,7 +2,7 @@ const CONFIG = window.PORTFOLIO_CONFIG || {};
 const FALLBACK = window.PORTFOLIO_FALLBACK;
 const TEXT_FIELDS = window.PORTFOLIO_TEXT_FIELDS || [];
 const DEMO_KEY = "portfolio-admin-demo-v2";
-const OWNER_EMAIL = "arafahsitisyariah@gmail.com";
+const OWNER_EMAIL = "cantiksyariah348@gmail.com";
 const SUPABASE_LIBRARY = "https://esm.sh/@supabase/supabase-js@2.119.2?bundle";
 
 const clone = (value) => JSON.parse(JSON.stringify(value));

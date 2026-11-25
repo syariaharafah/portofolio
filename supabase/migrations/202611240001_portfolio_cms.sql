@@ -156,7 +156,12 @@ stable
 security definer
 set search_path = public, pg_temp
 as $$
-  select exists(select 1 from public.admin_users where user_id = auth.uid());
+  select exists(
+    select 1
+    from public.admin_users
+    where user_id = auth.uid()
+      and lower(email) = 'cantiksyariah348@gmail.com'
+  );
 $$;
 
 revoke all on function public.is_admin() from public;
@@ -169,7 +174,7 @@ security definer
 set search_path = public, pg_temp
 as $$
 begin
-  if lower(coalesce(new.email, '')) = 'arafahsitisyariah@gmail.com' then
+  if lower(coalesce(new.email, '')) = 'cantiksyariah348@gmail.com' then
     insert into public.admin_users (user_id, email)
     values (new.id, lower(new.email))
     on conflict (user_id) do update set email = excluded.email;
@@ -185,7 +190,7 @@ security definer
 set search_path = public, pg_temp
 as $$
 begin
-  if lower(coalesce(new.email, '')) <> 'arafahsitisyariah@gmail.com' then
+  if lower(coalesce(new.email, '')) <> 'cantiksyariah348@gmail.com' then
     raise exception 'Pendaftaran publik tidak tersedia untuk portofolio ini.';
   end if;
   return new;
@@ -203,7 +208,7 @@ after insert or update of email on auth.users
 for each row execute function public.handle_owner_account();
 
 insert into public.admin_users (user_id, email)
-select id, lower(email) from auth.users where lower(email) = 'arafahsitisyariah@gmail.com'
+select id, lower(email) from auth.users where lower(email) = 'cantiksyariah348@gmail.com'
 on conflict (user_id) do update set email = excluded.email;
 
 alter table public.site_settings enable row level security;

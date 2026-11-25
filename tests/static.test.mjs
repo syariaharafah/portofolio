@@ -33,3 +33,16 @@ test("migration mengaktifkan RLS, RPC publik, dan aturan Storage", async () => {
   assert.match(sql, /portfolio-media/);
   assert.match(sql, /public\.is_admin\(\)/);
 });
+
+test("hanya email pemilik yang dapat menjadi admin", async () => {
+  const [sql, adminScript, adminHtml] = await Promise.all([
+    read("supabase/migrations/202611240001_portfolio_cms.sql"),
+    read("admin/admin.js"),
+    read("admin/index.html"),
+  ]);
+  const ownerEmail = "cantiksyariah348@gmail.com";
+  assert.match(sql, new RegExp(ownerEmail.replace(".", "\\.")));
+  assert.match(adminScript, new RegExp(ownerEmail.replace(".", "\\.")));
+  assert.match(adminHtml, new RegExp(ownerEmail.replace(".", "\\.")));
+  assert.doesNotMatch(sql, /arafahsitisyariah@gmail\.com/);
+});
