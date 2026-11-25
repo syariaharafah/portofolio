@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#123b72">
+  <title>Admin Portofolio Siti Syariah</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="admin.css?v=20261124-cms1">
+</head>
+<body>
+  <div class="admin-decoration" aria-hidden="true"><span>✿</span><span>❀</span><span>✦</span></div>
+
+  <main class="auth-page" id="auth-page">
+    <section class="auth-card" aria-labelledby="login-title">
+      <a class="auth-brand" href="../"><span>SA</span><div><strong>Admin Portofolio</strong><small>Siti Syariah Arafah</small></div></a>
+      <div class="auth-copy"><p class="kicker">Ruang pengelolaan</p><h1 id="login-title">Masuk untuk mengubah isi situs</h1><p>Gunakan email admin. Semua menu dibuat dengan bahasa sederhana dan dapat digunakan dari ponsel.</p></div>
+      <div class="setup-notice" id="setup-notice" hidden>
+        <strong>Supabase belum tersambung</strong>
+        <p>Anda tetap dapat mencoba seluruh admin dalam mode demo lokal. Perubahan demo hanya tersimpan di browser ini.</p>
+        <button class="button button-soft" id="demo-button" type="button">Buka mode demo lokal</button>
+      </div>
+      <form class="auth-form" id="login-form">
+        <label>Email admin<input type="email" name="email" value="arafahsitisyariah@gmail.com" autocomplete="username" required></label>
+        <label>Kata sandi<input type="password" name="password" minlength="8" autocomplete="current-password" required><small>Minimal 8 karakter.</small></label>
+        <button class="button button-primary" type="submit">Masuk ke admin</button>
+      </form>
+      <div class="auth-links">
+        <button type="button" data-auth-action="forgot">Lupa kata sandi</button>
+        <button type="button" data-auth-action="register">Aktifkan akun admin pertama</button>
+      </div>
+      <p class="form-message" id="auth-message" role="status" aria-live="polite"></p>
+      <a class="back-link" href="../">Kembali ke portofolio</a>
+    </section>
+  </main>
+
+  <div class="admin-app" id="admin-app" hidden>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand"><span>SA</span><div><strong>Kelola Portofolio</strong><small id="mode-label">Supabase</small></div></div>
+      <nav class="admin-nav" aria-label="Menu admin">
+        <button class="active" data-view="dashboard"><span>⌂</span>Ringkasan</button>
+        <p>Isi utama</p>
+        <button data-view="identity"><span>✦</span>Identitas & beranda</button>
+        <button data-view="sections"><span>☰</span>Judul setiap bagian</button>
+        <button data-view="profile"><span>♡</span>Biodata</button>
+        <button data-view="education"><span>◫</span>Pendidikan</button>
+        <p>Pengalaman</p>
+        <button data-view="achievements"><span>★</span>Pencapaian</button>
+        <button data-view="seminars"><span>◉</span>Seminar & pelatihan</button>
+        <button data-view="teaching"><span>♧</span>Pengalaman mengajar</button>
+        <button data-view="organization"><span>◇</span>Organisasi</button>
+        <button data-view="custom"><span>＋</span>Bagian tambahan</button>
+        <p>Pengaturan</p>
+        <button data-view="media"><span>▧</span>Foto & dokumen</button>
+        <button data-view="appearance"><span>❀</span>Warna & sakura</button>
+      </nav>
+      <div class="sidebar-bottom"><button id="logout-button" type="button">Keluar dari admin</button></div>
+    </aside>
+
+    <div class="admin-main">
+      <header class="admin-header">
+        <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-label="Buka menu">☰</button>
+        <div><p id="view-kicker">Admin portofolio</p><h1 id="view-title">Ringkasan</h1></div>
+        <div class="header-actions"><span class="save-state" id="save-state">Semua perubahan tersimpan</span><a class="preview-button" href="../" target="_blank" rel="noopener">Lihat situs</a></div>
+      </header>
+      <div class="demo-banner" id="demo-banner" hidden><strong>Mode demo lokal</strong><span>Anda dapat mencoba mengubah semua isi. Sambungkan Supabase agar perubahan dapat dilihat semua pengunjung.</span></div>
+      <section class="admin-content" id="admin-content" aria-live="polite"></section>
+    </div>
+  </div>
+
+  <div class="admin-toast" id="admin-toast" role="status" aria-live="polite"></div>
+  <script src="../site-config.js"></script>
+  <script src="../data/fallback-data.js"></script>
+  <script type="module" src="admin.js?v=20261124-cms1"></script>
+</body>
+</html>
